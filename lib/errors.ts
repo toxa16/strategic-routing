@@ -1,7 +1,7 @@
 /**
  * General HTTP error class.
  */
-abstract class HttpError extends Error {
+export abstract class HttpError extends Error {
 
   abstract readonly code;
 

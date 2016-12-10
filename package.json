@@ -13,5 +13,9 @@
     "express": "^4.14.0",
     "reflect-metadata": "^0.1.8"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": ">= 6.9.2"
+  },
+  "main": "./dist/index.js"
 }
