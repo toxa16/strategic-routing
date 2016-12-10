@@ -1,6 +1,6 @@
 {
   "name": "strategic-routing",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": {
     "name": "Anton Bahurinsky"
   },
@@ -17,5 +17,6 @@
   "engines": {
     "node": ">= 6.9.2"
   },
-  "main": "./dist/index.js"
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts"
 }
