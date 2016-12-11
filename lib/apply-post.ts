@@ -1,4 +1,4 @@
-import {posts} from './endpoint-decorators/post';
+import {postRegister} from './registers';
 import {Application, Response} from 'express';
 import {BadRequest, InternalServerError, Conflict} from './errors';
 import {EndpointRecord} from './types/endpoint-record';
@@ -11,8 +11,8 @@ import {ParameterRecord} from './types/parameter-record';
  * @param service Target service instance
  */
 export function applyPost(app: Application, service: Object): void {
-  for (const endpoint of posts) {
-    app.post(endpoint.route, (req, res: Response) => {
+  for (const endpoint of postRegister) {
+    app.post(endpoint.routes, (req, res: Response) => {
 
       try {
         const body: Object = req.body;
@@ -25,6 +25,8 @@ export function applyPost(app: Application, service: Object): void {
 
     });
   }
+
+  // TODO: clear POST registry
 }
 
 

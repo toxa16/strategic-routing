@@ -1,1 +1,2 @@
-# Routing for Strategic.js Framework
+# strategic-routing
+Routing module for Strategic.js Framework.

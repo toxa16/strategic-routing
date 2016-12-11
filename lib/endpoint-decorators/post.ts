@@ -3,16 +3,12 @@ import {getMethodParamNames} from './helpers';
 import {EndpointRecord} from '../types/endpoint-record';
 import {
   requiredRegister, patternRegister,
-  minLengthRegister
+  minLengthRegister, postRegister
 } from '../registers';
 import {ParameterRecord} from '../types/parameter-record';
 
 
-/**
- * POST endpoint register.
- * @type {Array}
- */
-export let posts: EndpointRecord[] = [];
+
 
 
 /**
@@ -32,10 +28,10 @@ export function Post(route: string) {
 
     const endpointRecord: EndpointRecord = {
       name: methodName,
-      route: route,
+      routes: route,
       parameters: params,
     };
-    posts.push(endpointRecord);
+    postRegister.push(endpointRecord);
 
     console.log('\n');
   }
