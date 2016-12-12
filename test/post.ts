@@ -18,6 +18,7 @@ class PostService {
   }
 
   @Post('/sign-in')
+  @Post('/log-in')
   @Post('/login')
   static signIn(
       @required @pattern(/@/) email,

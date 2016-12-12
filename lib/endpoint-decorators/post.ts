@@ -1,13 +1,12 @@
 import 'reflect-metadata';
-import {getMethodParamNames} from './helpers';
+import {getMethodParamNames, recordParameters} from './helpers';
 import {EndpointRecord} from '../types/endpoint-record';
 import {
   requiredRegister, patternRegister,
-  minLengthRegister, postRegister
-} from '../registers';
+  minLengthRegister
+} from '../parameter-decorators/registers';
 import {ParameterRecord} from '../types/parameter-record';
-
-
+import {postRegister} from '../registers';
 
 
 
@@ -17,13 +16,14 @@ import {ParameterRecord} from '../types/parameter-record';
  * @constructor
  */
 export function Post(route: string) {
-  return function (targetClassPrototype: Object, methodName: string) {
+  return function (target: Object, methodName: string) {
 
+    // TODO: logging
     console.log(`Post ${methodName}`);
     //console.log(patternRegister);
 
     const params: ParameterRecord[] =
-        recordParameters(targetClassPrototype[methodName]);
+        recordParameters(target[methodName]);
     console.log(params);
 
     const endpointRecord: EndpointRecord = {
@@ -38,7 +38,7 @@ export function Post(route: string) {
 }
 
 
-function recordParameters(method: Function): ParameterRecord[] {
+/*function recordParameters(method: Function): ParameterRecord[] {
   let params: ParameterRecord[] = [];
   const paramNames = getMethodParamNames(method);
   for (const paramName of paramNames) {
@@ -59,4 +59,4 @@ function recordParameters(method: Function): ParameterRecord[] {
   patternRegister.clear();
   minLengthRegister.clear();
   return params;
-}
+}*/

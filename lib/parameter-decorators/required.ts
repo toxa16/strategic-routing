@@ -1,4 +1,4 @@
-import {requiredRegister} from '../registers';
+import {requiredRegister} from './registers';
 
 /**
  * Required parameter decorator.
@@ -11,6 +11,12 @@ export function required(
     methodName: string,
     parameterIndex: number) {
 
+  // TODO: logging
   console.log(`Required: ${methodName}{${parameterIndex}}`);
-  requiredRegister.push(parameterIndex);
+
+  if (requiredRegister.has(parameterIndex)) {
+    throw new Error('Multiple @required decorators on single parameter.');
+  }
+
+  requiredRegister.register(parameterIndex, true);
 }

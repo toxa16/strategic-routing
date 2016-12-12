@@ -1,4 +1,4 @@
-import {patternRegister} from '../registers';
+import {patternRegister} from './registers';
 
 /**
  * Pattern parameter decorator.
@@ -11,6 +11,11 @@ export function pattern(regexp: RegExp) {
       parameterIndex: number) {
 
     console.log(`Pattern: ${methodName}{${parameterIndex}}`);
-    patternRegister.set(parameterIndex, regexp);
+
+    if (patternRegister.has(parameterIndex)) {
+      throw new Error('Multiple @pattern decorators on single parameter.');
+    }
+
+    patternRegister.register(parameterIndex, regexp);
   }
 }
