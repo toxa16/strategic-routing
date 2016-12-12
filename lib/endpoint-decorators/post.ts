@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import {getMethodParamNames, recordParameters} from './helpers';
+import {recordParameters} from './helpers';
 import {EndpointRecord} from '../types/endpoint-record';
 import {
   requiredRegister, patternRegister,
