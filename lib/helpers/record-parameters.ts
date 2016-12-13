@@ -1,8 +1,8 @@
-import {ParameterRecord} from '../../types/parameter-record';
-import {
-  requiredRegister, patternRegister, minLengthRegister, emailRegister
-} from '../../parameter-decorators/registers';
-
+import {ParameterRecord} from '../types/parameter-record';
+import {requiredRegister} from '../registers/required.register';
+import {patternRegister} from '../registers/pattern.register';
+import {minLengthRegister} from '../registers/min-length.register';
+import {emailRegister} from '../registers/email.register';
 
 
 /**
@@ -31,6 +31,7 @@ export function recordParameters(method: Function): ParameterRecord[] {
   requiredRegister.clear();
   patternRegister.clear();
   minLengthRegister.clear();
+  emailRegister.clear();
   return params;
 }
 

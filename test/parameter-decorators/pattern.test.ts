@@ -1,6 +1,6 @@
 import * as test from 'tape';
 import {pattern} from '../../lib/parameter-decorators/pattern';
-import {patternRegister} from '../../lib/parameter-decorators/registers';
+import {patternRegister} from '../../lib/registers/pattern.register';
 
 
 test('Pattern: with decorators', function (t) {

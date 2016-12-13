@@ -1,6 +1,6 @@
 import * as test from 'tape';
 import {minLength} from '../../lib/parameter-decorators/min-length';
-import {minLengthRegister} from '../../lib/parameter-decorators/registers';
+import {minLengthRegister} from '../../lib/registers/min-length.register';
 
 
 test('MinLength: with decorators', function (t) {

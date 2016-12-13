@@ -1,4 +1,4 @@
-import {ParameterRegister} from './parameter.register';
+import {ParameterRegister} from '../types/parameter-register';
 
 
 /**

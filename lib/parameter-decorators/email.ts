@@ -1,4 +1,4 @@
-import {emailRegister} from './registers';
+import {emailRegister} from '../registers/email.register';
 
 /**
  * Email parameter decorator.

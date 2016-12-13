@@ -1,5 +1,5 @@
 import * as test from 'tape';
-import {emailRegister} from '../../lib/parameter-decorators/registers';
+import {emailRegister} from '../../lib/registers/email.register';
 import {email} from '../../lib/parameter-decorators/email';
 
 

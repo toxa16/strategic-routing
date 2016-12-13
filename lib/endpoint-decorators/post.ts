@@ -1,26 +1,17 @@
-import 'reflect-metadata';
-import {recordParameters} from './helpers';
-import {EndpointRecord} from '../types/endpoint-record';
-import {
-  requiredRegister, patternRegister,
-  minLengthRegister
-} from '../parameter-decorators/registers';
-import {ParameterRecord} from '../types/parameter-record';
-import {postRegister} from '../registers';
-
+import {postRegister} from '../registers/post.register';
+import {decoratorCore} from './decorator-core';
 
 
 /**
  * Post decorator for POST endpoints.
  * @param route
+ * @returns {(target:(Object|Function), methodName:string)=>void}
  * @constructor
  */
 export function Post(route: string) {
-  return function (target: Object, methodName: string) {
+  return function (target: Object|Function, methodName: string): void {
 
-    // TODO: logging
-    console.log(`Post ${methodName}`);
-    //console.log(patternRegister);
+    /*console.log(`Post ${methodName}`);
 
     const params: ParameterRecord[] =
         recordParameters(target[methodName]);
@@ -31,9 +22,11 @@ export function Post(route: string) {
       routes: route,
       parameters: params,
     };
-    postRegister.push(endpointRecord);
+    postRegisterOld.push(endpointRecord);
 
-    console.log('\n');
+    console.log('\n');*/
+
+    decoratorCore(target, methodName, postRegister, route);
   }
 }
 

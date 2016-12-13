@@ -1,4 +1,4 @@
-import {postRegister} from './registers';
+import {postRegisterOld} from './registers/post.register';
 import {Application, Response} from 'express';
 import {BadRequest, InternalServerError, Conflict} from './errors';
 import {EndpointRecord} from './types/endpoint-record';
@@ -11,7 +11,7 @@ import {ParameterRecord} from './types/parameter-record';
  * @param service Target service instance
  */
 export function applyPost(app: Application, service: Object): void {
-  for (const endpoint of postRegister) {
+  for (const endpoint of postRegisterOld) {
     app.post(endpoint.routes, (req, res: Response) => {
 
       try {

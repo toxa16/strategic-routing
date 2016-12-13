@@ -1,7 +1,7 @@
 import * as test from 'tape';
 
 import {required} from '../../lib/parameter-decorators/required';
-import {requiredRegister} from '../../lib/parameter-decorators/registers';
+import {requiredRegister} from '../../lib/registers/required.register';
 
 
 

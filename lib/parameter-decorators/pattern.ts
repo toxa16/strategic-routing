@@ -1,4 +1,4 @@
-import {patternRegister} from './registers';
+import {patternRegister} from '../registers/pattern.register';
 
 /**
  * Pattern parameter decorator.

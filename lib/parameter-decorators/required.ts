@@ -1,4 +1,4 @@
-import {requiredRegister} from './registers';
+import {requiredRegister} from '../registers/required.register';
 
 /**
  * Required parameter decorator.

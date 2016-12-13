@@ -1,15 +1,15 @@
 import {decoratorCore} from './decorator-core';
-import {getRegister} from '../registers/get.register';
+import {deleteRegister} from '../registers/delete.register';
 
 
 /**
- * Get decorator for GET endpoints.
+ * Delete decorator for DELETE endpoints.
  * @param route
  * @returns {(target:(Object|Function), methodName:string)=>void}
  * @constructor
  */
-export function Get(route: string) {
+export function Delete(route: string) {
   return function (target: Object|Function, methodName: string): void {
-    decoratorCore(target, methodName, getRegister, route);
+    decoratorCore(target, methodName, deleteRegister, route);
   }
 }

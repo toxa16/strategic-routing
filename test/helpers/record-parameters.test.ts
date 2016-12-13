@@ -1,14 +1,16 @@
 import * as test from 'tape';
-import {
-  requiredRegister, patternRegister, minLengthRegister, emailRegister
-} from '../../lib/parameter-decorators/registers';
-import {ParameterRecord} from '../../lib/types/parameter-record';
-import {recordParameters} from '../../lib/endpoint-decorators/helpers';
 
+import {requiredRegister} from '../../lib/registers/required.register';
+import {patternRegister} from '../../lib/registers/pattern.register';
+import {minLengthRegister} from '../../lib/registers/min-length.register';
+import {emailRegister} from '../../lib/registers/email.register';
+
+import {ParameterRecord} from '../../lib/types/parameter-record';
+import {recordParameters} from '../../lib/helpers/record-parameters';
 
 
 test('Record parameters', function (t) {
-  t.plan(26);
+  //t.plan(26);
 
   // test entry data
   const recordParametersFn =
@@ -74,9 +76,15 @@ test('Record parameters', function (t) {
   t.ok(paramRec5.email);
 
 
-  requiredRegister.clear();
-  patternRegister.clear();
-  minLengthRegister.clear();
-  emailRegister.clear();
+
+
+  t.equal(requiredRegister.size(), 0,
+      `required register should be empty`);
+  t.equal(patternRegister.size(), 0,
+      `pattern register should be empty`);
+  t.equal(minLengthRegister.size(), 0,
+      `minLength register should be empty`);
+  t.equal(emailRegister.size(), 0,
+      `email register should be empty`);
   t.end();
 });

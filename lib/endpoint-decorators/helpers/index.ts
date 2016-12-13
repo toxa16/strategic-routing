@@ -1,2 +1,2 @@
-export {recordParameters} from './record-parameters';
-export {camelCaseToDash} from './camel-case-to-dash';
+export {recordParameters} from '../../helpers/record-parameters';
+export {camelCaseToDash} from '../../helpers/camel-case-to-dash';

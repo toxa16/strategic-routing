@@ -1,15 +1,15 @@
 import {decoratorCore} from './decorator-core';
-import {getRegister} from '../registers/get.register';
+import {testRegister} from '../registers/test.register';
 
 
 /**
- * Get decorator for GET endpoints.
+ * Endpoint decorator for testing purposes.
  * @param route
  * @returns {(target:(Object|Function), methodName:string)=>void}
  * @constructor
  */
-export function Get(route: string) {
+export function TestEndpoint(route: string) {
   return function (target: Object|Function, methodName: string): void {
-    decoratorCore(target, methodName, getRegister, route);
-  }
+    decoratorCore(target, methodName, testRegister, route);
+  };
 }
