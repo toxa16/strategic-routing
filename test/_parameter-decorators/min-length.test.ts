@@ -1,5 +1,5 @@
 import * as test from 'tape';
-import {minLength} from '../../lib/parameter-decorators/min-length';
+import {minlength} from '../../lib/parameter-decorators/min-length';
 import {minLengthRegister} from '../../lib/registers/min-length.register';
 
 
@@ -15,11 +15,11 @@ test('MinLength: with decorators', function (t) {
   class WithMinLengthService {
 
     withPattern(
-        @minLength(length0) param0,
-        @minLength(length1) param1,
-        @minLength(length2) param2,
+        @minlength(length0) param0,
+        @minlength(length1) param1,
+        @minlength(length2) param2,
         param3,
-        @minLength(length4) param4
+        @minlength(length4) param4
     ) {}
   }
 
@@ -67,7 +67,7 @@ test('MinLength: multiple decorators on single parameter', function (t) {
 
     class MultipleMinLengthService {
       multiple(
-        @minLength(2) @minLength(11) param
+        @minlength(2) @minlength(11) param
       ) {}
     }
 
@@ -84,7 +84,7 @@ test('MinLength: argument validation', function (t) {
   t.throws(function () {
     class ZeroMinLengthService {
       multiple(
-        @minLength(0) param
+        @minlength(0) param
       ) {}
     }
   }, 'an error should be thrown on zero');
@@ -92,7 +92,7 @@ test('MinLength: argument validation', function (t) {
   t.throws(function () {
     class NegativeIntMinLengthService {
       multiple(
-        @minLength(-5) param
+        @minlength(-5) param
       ) {}
     }
   }, 'an error should be thrown on negative integer');
@@ -101,7 +101,7 @@ test('MinLength: argument validation', function (t) {
 
     class FloatMinLengthService {
       multiple(
-        @minLength(-Infinity) param
+        @minlength(-Infinity) param
       ) {}
     }
 
@@ -109,7 +109,7 @@ test('MinLength: argument validation', function (t) {
   t.throws(function () {
     class NegativeFloatMinLengthService {
       multiple(
-        @minLength(-1.25) param
+        @minlength(-1.25) param
       ) {}
     }
   }, 'an error should be thrown negative float number');
@@ -118,7 +118,7 @@ test('MinLength: argument validation', function (t) {
 
     class NanMinLengthService {
       multiple(
-        @minLength(NaN) param
+        @minlength(NaN) param
       ) {}
     }
 
@@ -127,7 +127,7 @@ test('MinLength: argument validation', function (t) {
 
     class NegativeNanMinLengthService {
       multiple(
-        @minLength(-NaN) param
+        @minlength(-NaN) param
       ) {}
     }
 
@@ -137,7 +137,7 @@ test('MinLength: argument validation', function (t) {
 
     class InfinityMinLengthService {
       multiple(
-        @minLength(Infinity) param
+        @minlength(Infinity) param
       ) {}
     }
 
@@ -146,7 +146,7 @@ test('MinLength: argument validation', function (t) {
 
     class NegativeInfinityMinLengthService {
       multiple(
-        @minLength(-Infinity) param
+        @minlength(-Infinity) param
       ) {}
     }
 
@@ -156,7 +156,7 @@ test('MinLength: argument validation', function (t) {
 
     class NonNumberMinLengthService {
       multiple(
-        @minLength(-Int8Array) param
+        @minlength(-Int8Array) param
       ) {}
     }
 

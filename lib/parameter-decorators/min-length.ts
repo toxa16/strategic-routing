@@ -1,33 +1,33 @@
-import {minLengthRegister} from '../registers/min-length.register';
+import {parameterRegister} from '../registers/parameter.register';
+import {minlengthSymbol} from '../symbols/minlength.symbol';
+
 
 /**
  * Min length parameter decorator.
  * @param minChars
  */
-export function minLength(minChars: number) {
+export function minlength(minChars: number) {
   return function (
     classPrototype: Object,
     methodName: string,
-    parameterIndex: number) {
+    parameterIndex: number
+  ) {
 
-    console.log(`Min Length: ${methodName}{${parameterIndex}}`);
+    // TODO: logging
+    console.log(`Minlength: ${methodName}[${parameterIndex}]`);
 
     if (minChars < 0) {
-      throw new Error('minLength argument must be positive.');
+      throw new Error('minlength argument must be positive.');
     }
 
     if (!Number.isFinite(minChars)) {
-      throw new Error('minLength argument must be finite.');
+      throw new Error('minlength argument must be finite.');
     }
 
     if (Number.isNaN(minChars)) {
-      throw new Error('minLength argument cannot be NaN.');
+      throw new Error('minlength argument cannot be NaN.');
     }
 
-    if (minLengthRegister.has(parameterIndex)) {
-      throw new Error('Multiple @minLength decorators on single parameter.');
-    }
-
-    minLengthRegister.register(parameterIndex, minChars);
+    parameterRegister.register(minlengthSymbol, parameterIndex, minChars);
   }
 }

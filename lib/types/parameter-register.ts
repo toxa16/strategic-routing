@@ -1,27 +1,47 @@
-/**
- * Parameter register general class.
- */
-export class ParameterRegister<T> {
+import {requiredSymbol} from '../symbols/required.symbol';
+import {emailSymbol} from '../symbols/email.symbol';
+import {patternSymbol} from '../symbols/pattern.symbol';
+import {minlengthSymbol} from '../symbols/minlength.symbol';
 
-  private _map: Map<number, T> = new Map<number, T>();
 
-  register(index: number, argument: T): void {
-    this._map.set(index, argument);
+export class ParameterRegister {
+
+  constructor() {
+    this[requiredSymbol] = new Map<number, boolean>();
+    this[emailSymbol] = new Map<number, boolean>();
+    this[patternSymbol] = new Map<number, RegExp>();
+    this[minlengthSymbol] = new Map<number, number>();
   }
 
-  has(index: number): boolean {
-    return this._map.has(index);
+
+  register(decoratorSymbol: symbol, index: number, value: any): void {
+    if (this[decoratorSymbol].has(index)) {
+      throw new Error(
+          `Multiple @${Symbol.keyFor(decoratorSymbol)} decorators ` +
+          `on the same property.`);
+    }
+    this[decoratorSymbol].set(index, value);
   }
 
-  size(): number {
-    return this._map.size;
+
+  apply(index: number): {validators: any} {
+    const validators = {
+      required: this[requiredSymbol].get(index),
+      email: this[emailSymbol].get(index),
+      pattern: this[patternSymbol].get(index),
+      minlength: this[minlengthSymbol].get(index),
+    };
+
+    return {
+      validators: validators,
+    };
   }
 
-  apply(index: number): T {
-    return this._map.get(index) || null;
-  }
 
   clear(): void {
-    this._map.clear();
+    this[requiredSymbol].clear();
+    this[emailSymbol].clear();
+    this[patternSymbol].clear();
+    this[minlengthSymbol].clear();
   }
 }

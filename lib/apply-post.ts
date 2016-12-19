@@ -121,7 +121,7 @@ function checkMinLength(parameter: ParameterRecord, argument: any): Object | nul
   let error = null;
   if (parameter.minLength && argument.length < parameter.minLength) {
     error = {
-      type: 'minLength',
+      type: 'minlength',
       value: parameter.minLength,
       message: `'${parameter.name}' must be at least ${parameter.minLength} characters long.`,
     }

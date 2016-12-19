@@ -1,37 +1,34 @@
 import {ParameterRecord} from '../types/parameter-record';
-import {requiredRegister} from '../registers/required.register';
-import {patternRegister} from '../registers/pattern.register';
-import {minLengthRegister} from '../registers/min-length.register';
-import {emailRegister} from '../registers/email.register';
+import {ParameterRegister} from '../types/parameter-register';
+
 
 
 /**
  * Creates a detailed record of endpoint parameters.
  * @param method
+ * @param register
  * @returns {ParameterRecord[]}
  */
-export function recordParameters(method: Function): ParameterRecord[] {
+export function recordParameters(
+    method: Function,
+    register: ParameterRegister
+): ParameterRecord[] {
+
   let params: ParameterRecord[] = [];
   const paramNames = getMethodParamNames(method);
   for (const paramName of paramNames) {
     const index = paramNames.indexOf(paramName);
+    const paramInfo = register.apply(index);
 
     let param: ParameterRecord = {
       name: paramName,
-      required: requiredRegister.apply(index),
-      pattern: patternRegister.apply(index),
-      minLength: minLengthRegister.apply(index),
-      email: emailRegister.apply(index),
+      validators: paramInfo.validators,
     };
 
     params.push(param);
   }
 
-  // clearing parameter registers
-  requiredRegister.clear();
-  patternRegister.clear();
-  minLengthRegister.clear();
-  emailRegister.clear();
+  register.clear();
   return params;
 }
 

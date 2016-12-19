@@ -1,4 +1,6 @@
-import {emailRegister} from '../registers/email.register';
+import {parameterRegister} from '../registers/parameter.register';
+import {emailSymbol} from '../symbols/email.symbol';
+
 
 /**
  * Email parameter decorator.
@@ -9,13 +11,9 @@ import {emailRegister} from '../registers/email.register';
 export function email(
     classPrototype: Object,
     methodName: string,
-    parameterIndex: number) {
-
-  console.log(`Email: ${methodName}{${parameterIndex}}`);
-
-  if (emailRegister.has(parameterIndex)) {
-    throw new Error('Multiple @email decorators on single parameter.');
-  }
-
-  emailRegister.register(parameterIndex, true);
+    parameterIndex: number
+) {
+  // TODO: logging
+  console.log(`Email: ${methodName}[${parameterIndex}]`);
+  parameterRegister.register(emailSymbol, parameterIndex, true);
 }

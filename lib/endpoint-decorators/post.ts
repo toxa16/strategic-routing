@@ -41,7 +41,7 @@ export function Post(route: string) {
       name: paramName,
       required: requiredRegister.includes(index),
       pattern: patternRegister.get(index) || null,
-      minLength: minLengthRegister.get(index) || null,
+      minlength: minLengthRegister.get(index) || null,
     };
 
     params.push(param);

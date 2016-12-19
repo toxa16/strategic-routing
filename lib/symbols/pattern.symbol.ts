@@ -1,0 +1,1 @@
+export const patternSymbol: symbol = Symbol.for('pattern');

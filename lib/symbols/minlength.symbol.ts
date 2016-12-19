@@ -1,0 +1,1 @@
+export const minlengthSymbol: symbol = Symbol.for('minlength');
