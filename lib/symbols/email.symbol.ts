@@ -1,1 +1,3 @@
-export const emailSymbol: symbol = Symbol.for('email');
+const emailSymbol: symbol = Symbol.for('email');
+
+export default emailSymbol;

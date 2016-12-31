@@ -1,1 +1,3 @@
-export const requiredSymbol: symbol = Symbol.for('required');
+const requiredSymbol: symbol = Symbol.for('required');
+
+export default requiredSymbol;

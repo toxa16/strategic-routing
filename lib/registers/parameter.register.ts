@@ -1,3 +1,4 @@
-import {ParameterRegister} from '../types/parameter-register';
+import ParameterRegister from '../types/parameter-register';
 
-export const parameterRegister = new ParameterRegister();
+const parameterRegister = new ParameterRegister();
+export default parameterRegister;

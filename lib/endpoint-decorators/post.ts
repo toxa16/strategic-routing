@@ -1,15 +1,16 @@
-import {postRegister} from '../registers/post.register';
-import {decoratorCore} from './decorator-core';
+import postRegister from '../registers/post.register';
+import decoratorCore from './decorator-core';
+import parameterRegister from '../registers/parameter.register';
 
 
 /**
  * Post decorator for POST endpoints.
  * @param route
- * @returns {(target:(Object|Function), methodName:string)=>void}
+ * @returns {(target:(Object|Function), endpointName:string)=>void}
  * @constructor
  */
 export function Post(route: string) {
-  return function (target: Object|Function, methodName: string): void {
+  return function (target: Object|Function, endpointName: string): void {
 
     /*console.log(`Post ${methodName}`);
 
@@ -26,30 +27,7 @@ export function Post(route: string) {
 
     console.log('\n');*/
 
-    decoratorCore(target, methodName, postRegister, route);
+    decoratorCore(
+        target, endpointName, postRegister, parameterRegister, route);
   }
 }
-
-
-/*function recordParameters(method: Function): ParameterRecord[] {
-  let params: ParameterRecord[] = [];
-  const paramNames = getMethodParamNames(method);
-  for (const paramName of paramNames) {
-    const index = paramNames.indexOf(paramName);
-
-    let param: ParameterRecord = {
-      name: paramName,
-      required: requiredRegister.includes(index),
-      pattern: patternRegister.get(index) || null,
-      minlength: minLengthRegister.get(index) || null,
-    };
-
-    params.push(param);
-  }
-
-  // clearing parameter registers
-  requiredRegister.length = 0;
-  patternRegister.clear();
-  minLengthRegister.clear();
-  return params;
-}*/

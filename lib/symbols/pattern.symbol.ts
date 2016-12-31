@@ -1,1 +1,3 @@
-export const patternSymbol: symbol = Symbol.for('pattern');
+const patternSymbol: symbol = Symbol.for('pattern');
+
+export default patternSymbol;

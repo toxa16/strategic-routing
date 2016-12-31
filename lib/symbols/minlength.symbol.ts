@@ -1,1 +1,3 @@
-export const minlengthSymbol: symbol = Symbol.for('minlength');
+const minlengthSymbol: symbol = Symbol.for('minlength');
+
+export default minlengthSymbol;

@@ -1,52 +1,63 @@
-import {EndpointRegister} from '../types/endpoint-register';
 import {ParameterRecord} from '../types/parameter-record';
 import {EndpointRecord} from '../types/endpoint-record';
-import {recordParameters} from '../helpers/record-parameters';
+import ParameterRegister from '../types/parameter-register';
+import EndpointRegister from '../types/endpoint-register';
 
 
 /**
  * Endpoint decorator core function.
  * @param target
  * @param methodName
- * @param register
+ * @param endpointRegister
+ * @param parameterRegister
  * @param route
  */
-export function decoratorCore(
+export default function decoratorCore(
     target: Object|Function,
     methodName: string,
-    register: EndpointRegister,
+    endpointRegister: EndpointRegister,
+    parameterRegister: ParameterRegister,
     route: string
 ): void {
 
   // TODO: logging
-  console.log(`${register.httpMethodName} endpoint '${methodName}':`);
+  console.log(`${endpointRegister.httpMethodName} endpoint '${methodName}':`);
   console.log(`route: ${route}`);
 
 
-  const rec1 = register.findByRoute(route);
+  //
+  // CHECKING FOR THE SAME ROUTE
+  //
+  const rec1 = endpointRegister.findByRoute(route);
   if (rec1 && rec1.name !== methodName) {
     throw new Error(`Different endpoints have the same route ` +
-        `${route} for "${register.httpMethodName}" method.`);
+        `${route} for "${endpointRegister.httpMethodName}" method.`);
   }
 
 
-  const rec = register.findByName(methodName);
-
+  //
+  // CHECKING FOR THE SAME ENDPOINT NAME
+  //
+  const rec = endpointRegister.findEndpoint(methodName);
   if (rec) {
 
-    if (!register.addRoute(methodName, route)) {
+    if (!endpointRegister.addRoute(methodName, route)) {
       // TODO: do not show warning for tests
       console.warn(
           `Warning: Endpoint "${methodName}" has duplicate ` +
-          `@${register.httpMethodName}() decorator ` +
+          `@${endpointRegister.httpMethodName}() decorator ` +
           `with the same route "${route}".`);
     }
 
 
   } else {
 
+
+    //
+    // PRIMARY ENDPOINT REGISTRATION LOGIC
+    //
     const params: ParameterRecord[] =
-        recordParameters(target[methodName]);
+        parameterRegister.apply((target[methodName]));
     console.log(params);
 
     const endpointRecord: EndpointRecord = {
@@ -54,12 +65,9 @@ export function decoratorCore(
       routes: [route],
       parameters: params,
     };
-    register.register(endpointRecord);
+    //endpointRegister.register(endpointRecord);
 
   }
-
-
-  //throw new Error();
 
 
   console.log('\n');

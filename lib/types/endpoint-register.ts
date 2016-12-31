@@ -1,56 +1,113 @@
 import {EndpointRecord} from './endpoint-record';
 import * as _ from 'lodash';
+import ParameterRegister from './parameter-register';
 
 
 /**
  * Endpoint register general class.
  */
-export class EndpointRegister {
-  private _records: EndpointRecord[] = [];
-  readonly httpMethodName;
+export default class EndpointRegister {
+
+  private endpointRecords: EndpointRecord[] = [];
+  //readonly httpMethodName;
 
 
   /**
    * Class constructor.
-   * @param httpMethodName
-   * @param capitalize
+   * @param parameterRegister
    */
-  constructor(httpMethodName?: string, capitalize: boolean = true) {
-    const name = capitalize ?
+  constructor(private parameterRegister: ParameterRegister) {
+    /*const name = capitalize ?
         _.capitalize(httpMethodName) : httpMethodName;
-    this.httpMethodName = name || 'Untyped';
+    this.httpMethodName = name || 'Untyped';*/
   }
 
 
   /**
-   * Registers new endpoint record
-   * @param record
+   * Registers new endpoint record.
+   * @param target
+   * @param endpointName
+   * @param route
    */
-  register(record: EndpointRecord): void {
-    this._records.push(record);
+  public register(
+      target: Object|Function,
+      endpointName: string,
+      route: string
+  ): void {
+    let record = this.findEndpoint(endpointName);
+    if (!record) {
+      record = this.addEndpoint(target, endpointName);
+    }
   }
 
 
+
+  public registerGet(
+      target: Object|Function,
+      endpointName: string,
+      route: string
+  ): void {}
+
+  public registerPost(
+      target: Object|Function,
+      endpointName: string,
+      route: string
+  ): void {}
+
+  public registerPut(
+      target: Object|Function,
+      endpointName: string,
+      route: string
+  ): void {}
+
+  public registerDelete(
+      target: Object|Function,
+      endpointName: string,
+      route: string
+  ): void {}
+
   /**
-   * Finds a record by endpoint name.
-   * @param methodName
+   * Finds endpoint record by endpoint name.
+   * @param endpointName
    * @returns {EndpointRecord}
    */
-  findByName(methodName: string): EndpointRecord {
-    return _.find(this._records, ['name', methodName]);
+  private findEndpoint(endpointName: string): EndpointRecord {
+    return _.find(this.endpointRecords, ['name', endpointName]);
   }
 
+
+  private addEndpoint(
+      target: Object|Function,
+      name: string
+  ): EndpointRecord {
+    let endpoint: Function;
+    if (target instanceof Function) {
+      endpoint = target.prototype[name];
+    } else {
+      endpoint = target[name];
+    }
+
+    const params = this.parameterRegister.apply(endpoint);
+
+    const record: EndpointRecord = {
+      name: name,
+      parameters: params,
+    };
+
+    this.endpointRecords.push(record);
+    return record;
+  }
 
   /**
    * Finds a record that contains given route.
    * @param route
    * @returns {EndpointRecord}
    */
-  findByRoute(route: string): EndpointRecord {
-    return _.find(this._records, function (o) {
+  /*findByRoute(route: string): EndpointRecord {
+    return _.find(this.endpoints, function (o) {
       return o.routes.includes(route);
     });
-  }
+  }*/
 
 
   /**
@@ -59,15 +116,15 @@ export class EndpointRegister {
    * @param route
    * @throws Error
    */
-  addRoute(methodName: string, route: string): boolean {
-    const rec = this.findByName(methodName);
+  /*addRoute(methodName: string, route: string): boolean {
+    const rec = this.findEndpoint(methodName);
     if (!rec.routes.includes(route)) {
       rec.routes.push(route);
       return true;
     } else {
       return false;
     }
-  }
+  }*/
 
 
   /**
@@ -75,7 +132,7 @@ export class EndpointRegister {
    * @returns {EndpointRecord[]}
    */
   get records(): EndpointRecord[] {
-    return this._records.slice();
+    return this.endpointRecord.slice();
   }
 
 
@@ -83,6 +140,6 @@ export class EndpointRegister {
    * Clears register.
    */
   clear(): void {
-    this._records.length = 0;
+    this.endpointRecord.length = 0;
   }
 }

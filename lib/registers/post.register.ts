@@ -1,5 +1,5 @@
 import {EndpointRecord} from '../types/endpoint-record';
-import {EndpointRegister} from '../types/endpoint-register';
+import EndpointRegister from '../types/endpoint-register';
 
 
 /**
@@ -14,4 +14,5 @@ export let postRegisterOld: EndpointRecord[] = [];
  * POST endpoint register.
  * @type {EndpointRegister}
  */
-export let postRegister: EndpointRegister = new EndpointRegister('post');
+let postRegister: EndpointRegister = new EndpointRegister('post');
+export default postRegister;
